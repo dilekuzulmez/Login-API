@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+
 use App\User;
 use Auth;
 use Socialite; /*for Socialite */
@@ -33,10 +36,14 @@ class AuthController extends Controller
     {
         $user = Socialite::driver($provider)->user();
 
+        //dd($user->token);
+
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
         return redirect('/home');
     }
+
+
 
     /**
      *Eğer bu üye daha önce sosyal medya hesaplarından biri ile giriş                 
@@ -57,12 +64,32 @@ class AuthController extends Controller
         $newUser = User::create([
             'name'     => $user->name,
             'email'    => $user->email,
-            'password' => md5(time()),
+            'password' => bcrypt(time()),
             'provider' => $provider,
             'provider_id' => $user->id,
         ]);
 
         return $newUser;
+    }
+
+    public function authenticate(Request $request)
+    {
+        // grab credentials from the request
+        $user = User::where('email', '=', $request->get('email'))->first();
+       // dd($credentials);
+        try {
+            $token = JWTAuth::fromUser($user); /* modelden alıyor direkt */
+            // attempt to verify the credentials and create a token for the user
+            if (! $token ) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        // all good so return the token
+        return response()->json(['status' => true, 'data' => compact('token')]);
     }
 
 }
