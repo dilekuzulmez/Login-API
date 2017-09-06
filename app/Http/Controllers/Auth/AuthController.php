@@ -57,6 +57,7 @@ class AuthController extends Controller
         $newUser = User::create([
             'name'     => $user->name,
             'email'    => $user->email,
+            'password' => md5(time()),
             'provider' => $provider,
             'provider_id' => $user->id,
         ]);
