@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Laravel\Socialite\SocialiteServiceProvider::class, /*Socialite*/
+        Laravel\Socialite\SocialiteServiceProvider::class, /* Socialite */
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class, /* tymon/jwt-auth */
    
 
     ],
@@ -228,8 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class, /*Socialite*/
-   
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class, /* Socialite */
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, /* tymon/jwt-auth */ 
 
     ],
 
