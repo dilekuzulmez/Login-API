@@ -9,6 +9,14 @@
 - [tymon/jwt-auth ](https://github.com/tymondesigns/jwt-auth).
 - [Video ==Api Authentication in laravel using Jwt](https://www.youtube.com/watch?v=O-hVQG3_W6k).
 
+## Projeyi Direkt Kullanabilmek için
+
+<pre><code>$ git clone https://github.com/dilekuzulmez/Login-API.git </pre></code>
+<pre><code>$ cd Laravel-Realtime-Chat</pre></code>
+<pre><code>$ composer install </pre></code>
+<pre><code>$ php artisan key:generate</pre></code>
+<pre><code>$ php artisan serve </pre></code>
+
 
 ## jwt-auth Kurulumu
 
